@@ -2,15 +2,7 @@ package com.shubhajit.recipe.entity;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
 public class Recipe {
@@ -34,6 +26,12 @@ public class Recipe {
 
     @Lob
     private Byte[] image;
+
+    @ManyToMany
+    @JoinTable(name = "recipe_category",
+            joinColumns = @JoinColumn(name = "recipe_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private Set<Category> categories;
 
     public Long getId() {
         return id;
@@ -123,4 +121,11 @@ public class Recipe {
         this.difficulty = difficulty;
     }
 
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
 }
