@@ -14,6 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Recipe {
@@ -37,6 +38,9 @@ public class Recipe {
 
     @Lob
     private Byte[] image;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Notes notes;
 
     @ManyToMany
     @JoinTable(name = "recipe_category",
@@ -138,5 +142,13 @@ public class Recipe {
 
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
+    }
+
+    public Notes getNotes() {
+        return notes;
+    }
+
+    public void setNotes(Notes notes) {
+        this.notes = notes;
     }
 }
